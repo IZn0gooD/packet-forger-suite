@@ -1,0 +1,133 @@
+#compdef packet-forger
+# Auto-complétion Zsh pour packet-forger
+
+local -a modules core_actions payload_actions lab_actions research_actions
+
+modules=(
+    'core:Transport de payloads via TCP/IP'
+    'payload:Génération de shellcode'
+    'lab:Tests et CVEs pédagogiques'
+    'research:Documentation théorique'
+)
+
+core_actions=(
+    'send:Transporter un payload'
+)
+
+payload_actions=(
+    'build:Générer un payload'
+)
+
+lab_actions=(
+    'list:Lister les CVEs disponibles'
+    'show:Afficher la documentation d'\''un CVE'
+    'test:Tester un CVE'
+    'server:Démarrer un serveur vulnérable'
+)
+
+research_actions=(
+    'list:Lister les sujets disponibles'
+    'show:Afficher la documentation d'\''un sujet'
+)
+
+_arguments -C \
+    '1:module:->module' \
+    '2:action:->action' \
+    '*::options:->options' \
+    '(--help -h)'{-h,--help}'[Afficher l'\''aide]' \
+    '(--version -v)'{-v,--version}'[Afficher la version]' \
+    '(--verbose -V)'{-V,--verbose}'[Mode verbeux]'
+
+case $state in
+    module)
+        _describe 'module' modules
+        ;;
+    action)
+        case $words[2] in
+            core)
+                _describe 'action' core_actions
+                ;;
+            payload)
+                _describe 'action' payload_actions
+                ;;
+            lab)
+                _describe 'action' lab_actions
+                ;;
+            research)
+                _describe 'action' research_actions
+                ;;
+        esac
+        ;;
+    options)
+        case $words[2] in
+            core)
+                case $words[3] in
+                    send)
+                        _arguments \
+                            '--payload[Fichier payload binaire]:file:_files -g "*.bin"' \
+                            '--target[IP cible]:ip:' \
+                            '--port[Port cible]:port:' \
+                            '--transport-profile[Profil TCP]:profile:((linux windows custom))' \
+                            '--fragment[Fragmentation IP]' \
+                            '--stealth[Mode stealth]' \
+                            '--source-ip[IP source]:ip:' \
+                            '--source-port[Port source]:port:' \
+                            '--ttl[TTL IP]:ttl:' \
+                            '--window[Fenêtre TCP]:window:' \
+                            '--interface[Interface réseau]:interface:_net_interfaces' \
+                            '(--help -h)'{-h,--help}'[Afficher l'\''aide]' \
+                            '(--verbose -V)'{-V,--verbose}'[Mode verbeux]'
+                        ;;
+                esac
+                ;;
+            payload)
+                case $words[3] in
+                    build)
+                        _arguments \
+                            '1:platform:((linux windows))' \
+                            '2:type:((reverse bind))' \
+                            '--lhost[IP du listener]:ip:' \
+                            '--lport[Port du listener]:port:' \
+                            '--output[Fichier de sortie]:file:_files' \
+                            '--polymorphic[Génération polymorphe]' \
+                            '--asm[Génération en assembleur pur]' \
+                            '--encode-xor[Encodage XOR]' \
+                            '(--help -h)'{-h,--help}'[Afficher l'\''aide]' \
+                            '(--verbose -V)'{-V,--verbose}'[Mode verbeux]'
+                        ;;
+                esac
+                ;;
+            lab)
+                case $words[3] in
+                    show|test)
+                        _arguments \
+                            '1:CVE:((CVE-2015-1635 CVE-2020-0796))' \
+                            '(--verbose -V)'{-V,--verbose}'[Mode verbeux]'
+                        ;;
+                    server)
+                        _arguments \
+                            '1:type:((http smb))' \
+                            '(--verbose -V)'{-V,--verbose}'[Mode verbeux]'
+                        ;;
+                    list)
+                        _arguments \
+                            '(--verbose -V)'{-V,--verbose}'[Mode verbeux]'
+                        ;;
+                esac
+                ;;
+            research)
+                case $words[3] in
+                    show)
+                        _arguments \
+                            '1:topic:((ASLR DEP_NX DEP NX STACK_CANARY CANARY ROP_TEMPLATES ROP MEMORY_CORRELATION))' \
+                            '(--verbose -V)'{-V,--verbose}'[Mode verbeux]'
+                        ;;
+                    list)
+                        _arguments \
+                            '(--verbose -V)'{-V,--verbose}'[Mode verbeux]'
+                        ;;
+                esac
+                ;;
+        esac
+        ;;
+esac

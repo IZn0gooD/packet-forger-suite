@@ -1,0 +1,55 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.bin
+*.json
+
+# Executables
+packet-forger
+payload-builder
+packet-forger-core
+
+# Build directories
+bin/
+obj/
+output/
+
+# Temporary files
+*.tmp
+*.asm
+/tmp/
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Documentation build
+docs/_build/
+
+# Test outputs
+test_output/
+captures/
+*.pcap
+*.cap
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+ENV/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Archives (fichiers obsolètes)
+docs/archive/

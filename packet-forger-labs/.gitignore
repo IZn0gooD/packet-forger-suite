@@ -1,0 +1,33 @@
+# Binaires compilés
+*.o
+*.bin
+*.exe
+CVE-*
+
+# Fichiers temporaires
+*.tmp
+*.swp
+*~
+.cache/
+
+# Captures réseau (optionnel, peut être versionné)
+*.pcap
+*.cap
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environnements virtuels
+venv/
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-*
+

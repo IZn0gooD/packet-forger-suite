@@ -1,0 +1,21 @@
+# Build artifacts
+*.o
+*.a
+*.so
+
+# Executables
+bin/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+
+# Test files
+test_*.sh.log
+

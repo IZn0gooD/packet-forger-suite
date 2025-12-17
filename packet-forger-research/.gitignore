@@ -1,0 +1,15 @@
+# Build artifacts (si code ajouté plus tard)
+*.o
+*.a
+*.so
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+
